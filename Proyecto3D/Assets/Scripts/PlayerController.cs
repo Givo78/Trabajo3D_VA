@@ -2,18 +2,25 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f; // Velocidad de movimiento
+    public float moveSpeed = 7f; 
+    public float rotationSpeed = 250;
+
+    public Animator animator;
+
+    private float x, y;
 
     void Update()
     {
-        // Obtener entrada del jugador
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        x = Input.GetAxis("Horizontal");
+        y = Input.GetAxis("Vertical");
 
-        // Crear un vector de movimiento
-        Vector3 movement = new Vector3(horizontal, 0, vertical);
+        transform.Rotate(0, x * Time.deltaTime * rotationSpeed, 0);
 
-        // Mover al personaje
-        transform.Translate(movement * moveSpeed * Time.deltaTime);
+        transform.Translate(0,0,y * Time.deltaTime * moveSpeed);
+
+
+       animator.SetFloat("VelX", x);
+       animator.SetFloat("VelY", y);
+
     }
 }
